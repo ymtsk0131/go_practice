@@ -14,14 +14,15 @@ type Page struct {
 }
 
 var templates = template.Must(template.ParseFiles("templates/edit.html", "templates/view.html"))
+var dataDir = "data/"
 
 func (p *Page) save() error {
-	filename := p.Title + ".txt"
+	filename := dataDir + p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0600)
 }
 
 func loadPage(title string) (*Page, error) {
-	filename := title + ".txt"
+	filename := dataDir + title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
